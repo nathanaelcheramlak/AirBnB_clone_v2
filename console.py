@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Module for HBNBCommand """
 import cmd
+import shlex
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -33,21 +34,40 @@ class HBNBCommand(cmd.Cmd):
         """Doesn't do anything on ENTER."""
         pass
 
-    def do_create(self, model):
-        """ Creates an instance according to a given class """
+    def do_create(self, line):
+        """Creates a new instance of BaseModel and saves it
 
-        if not model:
+        Exceptions:
+            SyntaxError: when ther is no arguments given
+            NameError: where there is no name for the object
+        """
+        try:
+            if not line:
+                raise SyntaxError()
+            my_list = line.split(" ")
+            dict_obj = eval("{}()".format(my_list[0]))
+            print("{}".format(dict_obj.id))
+
+            for n in range(1, len(my_list)):
+                print(my_list[n])
+                my_list[n] = my_list[n].replace("=", " ")
+                attr = shlex.split(my_list[n])
+                attr[1] = attr[1].replace("_", " ")
+
+                try:
+                    variable = eval(attr[1])
+                    attr[1] = variable
+                except Exception as e:
+                    pass
+                if type(attr[1]) is not tuple:
+                    setattr(dict_obj, attr[0], attr[1])
+
+            dict_obj.save()
+
+        except SyntaxError:
             print("** class name missing **")
-        elif model not in HBNBCommand.class_list:
+        except NameError:
             print("** class doesn't exist **")
-        else:
-            dct = {'BaseModel': BaseModel, 'User': User,
-                   'State': State, 'City': City,
-                   'Amenity': Amenity, 'Place': Place,
-                   'Review': Review}
-            my_model = dct[model]()
-            print(my_model.id)
-            my_model.save()
 
     def do_show(self, argument):
         """ Shows string representation of the instance passed """
