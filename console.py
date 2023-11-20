@@ -34,20 +34,21 @@ class HBNBCommand(cmd.Cmd):
         """Doesn't do anything on ENTER."""
         pass
 
-    def do_create(self, line):
+    def do_create(self, arguments):
         """Creates a new instance of BaseModel and saves it
         Exceptions:
             SyntaxError: when ther is no arguments given
             NameError: where there is no name for the object
         """
         try:
-            if not line:
+            if not arguments:
                 raise SyntaxError()
-            my_list = line.split(" ")
+            my_list = arguments.split(" ")
+            list_len = len(my_list)
             dict_obj = eval("{}()".format(my_list[0]))
             print("{}".format(dict_obj.id))
 
-            for n in range(1, len(my_list)):
+            for n in range(1, list_len):
                 my_list[n] = my_list[n].replace("=", " ")
                 attr = shlex.split(my_list[n])
                 attr[1] = attr[1].replace("_", " ")
