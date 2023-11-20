@@ -36,7 +36,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creates a new instance of BaseModel and saves it
-
         Exceptions:
             SyntaxError: when ther is no arguments given
             NameError: where there is no name for the object
