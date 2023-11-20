@@ -48,7 +48,6 @@ class HBNBCommand(cmd.Cmd):
             print("{}".format(dict_obj.id))
 
             for n in range(1, len(my_list)):
-                print(my_list[n])
                 my_list[n] = my_list[n].replace("=", " ")
                 attr = shlex.split(my_list[n])
                 attr[1] = attr[1].replace("_", " ")
