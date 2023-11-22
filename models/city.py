@@ -4,8 +4,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 
 
-class City(BaseModel):
+class City(BaseModel, Base):
     """Class City representation"""
     __tablename__ = "cities"
-    state_id = Column(String(60), ForeignKey("state_id"), nullable=False)
+    state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
     name = Column(String(128), nullable=False)
