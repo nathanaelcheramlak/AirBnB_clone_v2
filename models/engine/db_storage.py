@@ -14,30 +14,31 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 class DBStorage:
+    """create tables in environmental"""
     __engine = None
     __session = None
 
     def __init__(self):
-
+        """Instantiate a DBStorage object"""
         user = getenv("HBNB_MYSQL_USER")
         passwd = getenv("HBNB_MYSQL_PWD")
         host = getenv("HBNB_MYSQL_HOST")
         db = getenv("HBNB_MYSQL_DB")
         environ = getenv("HBNB_ENV")
 
-        self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}'
-                                      , pool_pre_ping=True)
+        self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}\
+                                      @{host}/{db}', pool_pre_ping=True)
 
         if environ == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-
+        """query on the current database session"""
         query_dict = {}
         if not cls:
-            class_list = ["User", "State", "City", "Amenity", "Place", "Review"]
+            class_ls = ["User", "State", "City", "Amenity", "Place", "Review"]
 
-            for cl in class_list:
+            for cl in class_ls:
                 query = self.__session.query(cl)
                 for elem in query:
                     key = f'{type(elem).__name__}.{elem.id}'

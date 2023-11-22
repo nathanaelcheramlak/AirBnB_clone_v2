@@ -10,6 +10,7 @@ from sqlalchemy import String, Column, DateTime
 
 Base = declarative_base()
 
+
 class BaseModel:
     """Represents the BaseModel of the HBnB project."""
 
@@ -72,7 +73,7 @@ class BaseModel:
         """Return the print/str representation of the BaseModel instance."""
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-    
+
     def delete(self):
         """delete object."""
         storage.delete(self)

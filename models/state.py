@@ -3,6 +3,7 @@
 from models.base_model import BaseModel
 from sqlalchemy import Column, String
 
+
 class State(BaseModel):
     """Class State representation"""
     __tabelname__ = "states"
