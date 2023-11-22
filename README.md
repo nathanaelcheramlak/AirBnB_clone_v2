@@ -7,7 +7,7 @@ This first step consists of a custom command-line interface for data management,
 
 ### How to start it, How to use it, with Examples.
 **Execution** <br>
-Interactive mode:
+Interactive mode::
 
 ```
 $ ./console.py
