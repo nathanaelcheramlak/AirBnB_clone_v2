@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """Module for BaseModel"""
-
+import models
 import uuid
 from datetime import datetime
-from models import storage
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, Column, DateTime
 
@@ -46,8 +45,8 @@ class BaseModel:
     def save(self):
         """Update updated_at with the current datetime."""
         self.updated_at = datetime.now()
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         """Return the dictionary of the BaseModel instance.
@@ -76,4 +75,4 @@ class BaseModel:
 
     def delete(self):
         """delete object."""
-        storage.delete(self)
+        models.storage.delete(self)
