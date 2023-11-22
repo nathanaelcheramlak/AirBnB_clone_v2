@@ -16,6 +16,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        """Property that connect cities to states"""
         var = models.storage.all()
         list_all = []
         result = []
