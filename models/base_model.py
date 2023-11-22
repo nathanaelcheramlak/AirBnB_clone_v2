@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for BaseModel"""
-# import models
+import models
+import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, Column, DateTime
 import uuid
@@ -66,6 +67,8 @@ class BaseModel:
                     n_dict[key] = value
 
         n_dict["__class__"] = self.__class__.__name__
+        if '_sa_instance_state' in n_dict:
+            del n_dict['_sa_instance_state']
 
         return n_dict
 
