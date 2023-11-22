@@ -1,4 +1,4 @@
--- Creating hbnb_dev_db database
+-- Creating hbnb_dev_db database.
 -- Privileges for new user (hbnb_dev).
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 -- Creates a user that will connect from the local host.
