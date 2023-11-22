@@ -26,8 +26,9 @@ class DBStorage:
         db = getenv("HBNB_MYSQL_DB")
         environ = getenv("HBNB_ENV")
 
-        self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}\
-                                      @{host}/{db}', pool_pre_ping=True)
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}"
+                                      .format(user, passwd, host, db),
+                                      pool_pre_ping=True)
 
         if environ == "test":
             Base.metadata.drop_all(self.__engine)
@@ -41,7 +42,7 @@ class DBStorage:
             for cl in class_ls:
                 query = self.__session.query(cl)
                 for elem in query:
-                    key = f'{type(elem).__name__}.{elem.id}'
+                    key = '{}.{}'.format(type(elem).__name__, elem.id)
                     query_dict[key] = elem
 
         else:
@@ -49,7 +50,7 @@ class DBStorage:
                 cls = eval(cls)
             query = self.__session.query(cls)
             for elem in query:
-                key = f'{type(elem).__name__}.{elem.id}'
+                key = '{}.{}'.format(type(elem).__name__, elem.id)
                 query_dict[key] = elem
 
         return query_dict

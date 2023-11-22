@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Module for BaseModel"""
-import models
-import uuid
-from datetime import datetime
+# import models
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, Column, DateTime
+import uuid
+from datetime import datetime
 
 
 Base = declarative_base()
@@ -13,10 +13,10 @@ Base = declarative_base()
 class BaseModel:
     """Represents the BaseModel of the HBnB project."""
 
-    t_format = "%Y-%m-%dT%H:%M:%S.%f"
-    id = Column(String(60), unique=True, primary_key=True, nullable=False)
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    t_format = "%Y-%m-%dT%H:%M:%S.%f"
 
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel.
@@ -44,9 +44,10 @@ class BaseModel:
 
     def save(self):
         """Update updated_at with the current datetime."""
+        from models import storage
         self.updated_at = datetime.now()
-        models.storage.new(self)
-        models.storage.save()
+        storage.new(self)
+        storage.save()
 
     def to_dict(self):
         """Return the dictionary of the BaseModel instance.
@@ -75,4 +76,5 @@ class BaseModel:
 
     def delete(self):
         """delete object."""
-        models.storage.delete(self)
+        from models import storage
+        storage.delete(self)

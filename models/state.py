@@ -6,5 +6,5 @@ from sqlalchemy import Column, String
 
 class State(BaseModel):
     """Class State representation"""
-    __tabelname__ = "states"
+    __tablename__ = "states"
     name = Column(String(128), nullable=False)
